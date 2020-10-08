@@ -1,0 +1,71 @@
+{% extends 'dashboard/base.html' %}
+
+
+{% block content %}
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h4 class="text-themecolor">Department</h4>
+        </div>
+        <div class="col-md-7 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <a href="{% url 'core:department_create' %}" class="btn btn-success d-none d-lg-block m-l-15">Add
+                    Department</a>
+
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+
+                        {% for department in department_list %}
+                        <div class="col-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <center>
+                                        <h4 class="card-title m-t-10">{{department.title}}</h4>
+                                        <h6 class="card-subtitle">{{department.description}}</h6>
+                                        <div class="row text-center justify-content-md-center">
+                                            <div class="col-4"><a
+                                                    href="{% url 'core:department_update' department.id %}"
+                                                    class="btn btn-success btn-sm d-none d-lg-block">Update
+                                                </a></div>
+                                            <div class="col-4"><a
+                                                    href="{% url 'core:department_delete' department.id %}"
+                                                    class="btn btn-sm btn-danger">Delete
+                                                </a></div>
+                                        </div>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+{% endblock content %}

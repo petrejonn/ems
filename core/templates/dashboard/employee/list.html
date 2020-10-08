@@ -1,0 +1,61 @@
+{% extends 'dashboard/base.html' %}
+
+
+{% block content %}
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h4 class="text-themecolor">Employees</h4>
+        </div>
+        <div class="col-md-7 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <a href="{% url 'core:employee_create' %}" class="btn btn-success d-none d-lg-block m-l-15">Add
+                    Employee</a>
+
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="message-box">
+                        <div class="message-widget message-scroll">
+                            <!-- Message -->
+
+                            {% for employee in employee_list %}
+                            <a href="{% url 'core:employee_detail' employee.id %}">
+                                <div class="user-img"> <img src="{{employee.photograph.url}}" alt="user"
+                                        class="img-circle"> <span class="profile-status online pull-right"></span>
+                                </div>
+                                <div class="mail-contnet">
+                                    <h5>{{employee.get_full_name}}</h5> <span
+                                        class="mail-desc">{{employee.email}}</span>
+                                </div>
+                            </a>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+{% endblock content %}

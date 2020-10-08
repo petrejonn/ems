@@ -1,0 +1,149 @@
+{% extends 'dashboard/base.html' %}
+
+
+{% block content %}
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h4 class="text-themecolor">Employee</h4>
+        </div>
+        <div class="col-md-7 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active"><a href="{% url 'core:employee_list' %}">Go Back</a></li>
+                </ol>
+
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <!-- Row -->
+    <div class="row">
+        <!-- Column -->
+        <div class="col-lg-4 col-xlg-3 col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <center class="m-t-30"> <img src="{{employee.photograph.url}}" class="img-circle" width="150" />
+                        <h4 class="card-title m-t-10">{{employee.get_full_name}}</h4>
+                        <h6 class="card-subtitle">{{employee.email}}</h6>
+                        <div class="row text-center justify-content-md-left">
+                            <div class="col-4">
+                                <a href="{% url 'core:employee_update' employee.id %}"
+                                    class="btn btn-sm btn-success">Update</a>
+                            </div>
+
+                        </div>
+                    </center>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+        <!-- Column -->
+        <div class="col-lg-8 col-xlg-9 col-md-7">
+            <div class="card">
+                <!-- Tab panes -->
+                <div class="card-body">
+                    <h1 class="mb">Employee Data</h1>
+                    <dl class="row">
+                        <dt class="col-sm-3">First Name</dt>
+                        <dd class="col-sm-9">{{employee.first_name}}</dd>
+                        <dt class="col-sm-3">Last Name</dt>
+                        <dd class="col-sm-9">
+                            {{employee.last_name}}
+                        </dd>
+                        <dt class="col-sm-3">Other name</dt>
+                        <dd class="col-sm-9">{{employee.other_name}}</dd>
+                        <dt class="col-sm-3">Date of Birth</dt>
+                        <dd class="col-sm-9">{{employee.date_of_birth}}</dd>
+                        <dt class="col-sm-3">State of Origin</dt>
+                        <dd class="col-sm-9">{{employee.state_of_origin}}</dd>
+                        <dt class="col-sm-3">LGA of Origine</dt>
+                        <dd class="col-sm-9">{{employee.lga_of_origin}}</dd>
+                        <dt class="col-sm-3">Employment Date</dt>
+                        <dd class="col-sm-9">{{employee.employment_date}}</dd>
+                        <dt class="col-sm-3">Retirement Date</dt>
+                        <dd class="col-sm-9">{{employee.retirement_date}}</dd>
+                        <dt class="col-sm-3">Phone Number</dt>
+                        <dd class="col-sm-9">{{employee.phone}}</dd>
+                        <dt class="col-sm-3">Department</dt>
+                        <dd class="col-sm-9 m-b-20 m-t-10">
+                            <ul style="list-style: none;">
+                                {% for department in employee.employee_department.all %}
+                                <li>{{department.department}} <span class="label label-info">
+                                        {{department.date_added}}</span> to
+                                    {% if department.date_left %}
+                                    <span class="label label-info"> {{department.date_added}}</span>
+                                    {% else %}
+                                    <span class="label label-warning">present</span>
+                                    {% endif %}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <a href="{% url 'core:employee_department_change' employee.id %}"
+                                class="btn btn-sm btn-success">Change Department</a>
+
+                        </dd>
+                        <dt class="col-sm-3">Position</dt>
+                        <dd class="col-sm-9">
+                            <ul style="list-style: none;">
+                                {% for position in employee.employee_position.all %}
+                                <li>{{position.position}} <span class="label label-info">
+                                        {{position.start_date}}</span> to
+                                    {% if position.end_date %}
+                                    <span class="label label-info"> {{position.end_date}}</span>
+                                    {% else %}
+                                    <span class="label label-warning">present</span>
+                                    {% endif %}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <a href="{% url 'core:employee_position_change' employee.id %}"
+                                class="btn btn-sm btn-success">Change Position</a>
+                        </dd>
+                        <dt class="col-sm-3">Leaves</dt>
+                        <dd class="col-sm-9">
+                            <ul style="list-style: none;">
+                                {% for leave in employee.employee_leave.all %}
+                                <li>{{leave.leave}} <span class="label label-info">
+                                        {{leave.start_date}}</span> to
+
+                                    {% if leave.end_date %}
+                                    <span class="label label-info"> {{leave.end_date}}</span>
+                                    {% else %}
+                                    <span class="label label-warning">present</span>
+                                    {% endif %}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <a href="{% url 'core:employee_leave_add' employee.id %}"
+                                class="btn btn-sm btn-success">Give
+                                Leave</a> <a href="{% url 'core:employee_leave_add' employee.id %}"
+                                class="btn btn-sm btn-danger">End
+                                Leave</a>
+                        </dd>
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+    </div>
+    <!-- Row -->
+    <!-- ==========
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+{% endblock content %}
